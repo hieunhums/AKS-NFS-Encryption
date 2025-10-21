@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nfs-test-pod
+  namespace: default
+spec:
+  containers:
+  - name: nfs-test
+    image: nginx:alpine
+    command:
+      - "/bin/sh"
+      - "-c"
+      - "while true; do echo 'NFS volume mounted and ready'; sleep 30; done"
+    volumeMounts:
+    - name: nfs-volume
+      mountPath: /data
+  volumes:
+  - name: nfs-volume
+    persistentVolumeClaim:
+      claimName: azurefile-nfs-pvc-encrypted

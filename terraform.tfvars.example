@@ -1,0 +1,20 @@
+# Azure region for resources
+location = "eastasia"
+
+# Resource group name
+rg_name = "oc-rg-eastasia"
+
+# Virtual network name
+vnet_name = "oc-vnet"
+
+# Subnet name
+subnet_name = "oc-subnet"
+
+# AKS cluster name
+aks_name = "oc-aks"
+
+# Storage account name (must be globally unique, 3-24 lowercase letters and numbers)
+storage_name = "ocmsgsgenaipmodelweights"
+
+# NFS share name
+share_name = "ocmsgsgenaipmodelweights"

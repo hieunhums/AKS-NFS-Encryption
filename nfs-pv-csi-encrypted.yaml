@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: azurefile-nfs-pv-encrypted
+  labels:
+    storage: azurefile-nfs-encrypted
+spec:
+  capacity:
+    storage: 1024Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  mountOptions:
+    - hard
+    - noresvport
+  csi:
+    driver: file.csi.azure.com
+    readOnly: false
+    volumeHandle: azurefile-nfs-pv-encrypted
+    volumeAttributes:
+      resourceGroup: oc-rg-eastasia
+      storageAccount: ocmsgsgenaipmodelweights
+      share: ocmsgsgenaipmodelweights
+      protocol: nfs
+      encryptInTransit: "true"
+      server: 10.20.1.4
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azurefile-nfs-pvc-encrypted
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 1024Gi
+  selector:
+    matchLabels:
+      storage: azurefile-nfs-encrypted

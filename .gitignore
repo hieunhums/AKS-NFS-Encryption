@@ -1,0 +1,41 @@
+# Terraform
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+terraform.tfplan
+tfplan
+*.tfvars
+!terraform.tfvars.example
+
+# Kubernetes
+kubeconfig
+*.kubeconfig
+
+# Azure
+.azure/
+*.publishsettings
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
+
+# SSH keys
+*.pem
+*.key
+id_rsa*
+
+# Backup files
+*.bak
