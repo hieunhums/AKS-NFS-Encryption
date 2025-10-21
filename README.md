@@ -110,7 +110,7 @@ spec:
     volumeAttributes:
       protocol: nfs
       encryptInTransit: "true"  # Enables encryption
-      server: 10.20.1.4          # Private endpoint IP
+      server: ocmsgsgenaipmodelweights.file.core.windows.net  # DNS name (resolves to private endpoint)
 ```
 
 ### Verification

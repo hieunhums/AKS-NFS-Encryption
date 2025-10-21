@@ -21,10 +21,10 @@ spec:
     volumeAttributes:
       resourceGroup: oc-rg-eastasia
       storageAccount: ocmsgsgenaipmodelweights
-      share: ocmsgsgenaipmodelweights
+      shareName: ocmsgsgenaipmodelweights
       protocol: nfs
       encryptInTransit: "true"
-      server: 10.20.1.4
+      server: ocmsgsgenaipmodelweights.file.core.windows.net
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
