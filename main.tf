@@ -8,7 +8,11 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 
   # Subscription ID will be read from ARM_SUBSCRIPTION_ID environment variable
   # or az account set
@@ -55,20 +59,15 @@ resource "azurerm_subnet" "subnet" {
 # Storage Account (NFS v4.1)
 # ==============================
 resource "azurerm_storage_account" "sa" {
-  name                       = var.storage_name
-  resource_group_name        = azurerm_resource_group.rg.name
-  location                   = var.location
-  account_tier               = "Premium"
-  account_replication_type   = "LRS"
-  account_kind               = "FileStorage"
-  shared_access_key_enabled  = false  # Disabled by Azure policy
-  https_traffic_only_enabled = false  # Required for NFS
-
-  network_rules {
-    default_action             = "Deny"
-    virtual_network_subnet_ids = [azurerm_subnet.subnet.id]
-    bypass                     = ["AzureServices"]
-  }
+  name                          = var.storage_name
+  resource_group_name           = azurerm_resource_group.rg.name
+  location                      = var.location
+  account_tier                  = "Premium"
+  account_replication_type      = "LRS"
+  account_kind                  = "FileStorage"
+  shared_access_key_enabled     = false  # Disabled by Azure policy
+  https_traffic_only_enabled    = true   # Compatible with AZNFS mount helper (used by CSI driver with encryptInTransit: true)
+  public_network_access_enabled = false  # Force private endpoint only access
 }
 
 # NFS share is managed outside Terraform via Azure CLI due to shared key access restrictions
